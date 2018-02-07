@@ -65,12 +65,15 @@ int main()
 		switch (menuOption)
 		{
 		case 'A':
+		case 'a':
 			bInstantaneousPowers = true;
 			break;
 		case 'B':
+		case 'b':
 			bAveragePower = true;
 			break;
 		case 'C':
+		case 'c':
 			bInstantaneousPowers = true;
 			bAveragePower = true;
 			break;
