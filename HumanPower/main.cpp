@@ -4,9 +4,6 @@
 //Assignment: Project Milestone #04
 //Description: Program that performs calculations on user inputed electrical data.
 //Last Changed: February 5, 2018
-//EVERYTHING IS OK
-
-//test comment
 
 #include <iostream>
 #include <string>
