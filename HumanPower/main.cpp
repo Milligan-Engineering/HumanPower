@@ -1,22 +1,30 @@
 //File Name: main.cpp
 //Author: Casey Williams
 //Email Address: cjwilliams@my.milligan.edu
-//Assignment: Project Milestone #04
+//Assignment: Project Milestone #05
 //Description: Program that performs calculations on user inputed electrical data.
-//Last Changed: February 5, 2018
+//Last Changed: February 12, 2018
 
 #include <iostream>
 #include <string>
 using namespace std;
+
+bool validateInput(bool bVoltageOrCurrent, double testInput, int dataIndex);
+
+const int DATA_POINTS = 5;
+const bool VOLTAGE = true;
+const bool CURRENT = false;
+
+double g_voltages[DATA_POINTS];
+double g_currents[DATA_POINTS];
+
 int main()
 {
 	string dataSetName;
-	const int DATA_POINTS = 5;
 	int dataIndex = 0;
 	double testVoltage;
-	double voltages[DATA_POINTS];
+	bool bValidInput;
 	double testCurrent;
-	double currents[DATA_POINTS];
 	char menuOption;
 	bool bInstantaneousPowers = false;
 	bool bAveragePower = false;
@@ -28,20 +36,20 @@ int main()
 	cin >> dataSetName;
 
 	cout << endl << "Data set uses " << DATA_POINTS << " pairs of voltage/current values.\n";
-	do //better to keep as a do-while for now, since it won't increment if the input fails input validation
+	do
 	{
 		cout << endl << "Enter voltage #" << (dataIndex + 1) << " (in volts): ";
 		cin >> testVoltage;
-		if (testVoltage >= 0) //input validation
-		{
-			voltages[dataIndex] = testVoltage;
 
+		bValidInput = validateInput(VOLTAGE, testVoltage, dataIndex);
+		if (bValidInput)
+		{
 			cout << "Enter current #" << (dataIndex + 1) << " (in amps): ";
 			cin >> testCurrent;
-			if (testCurrent >= 0) //input validation
-			{
-				currents[dataIndex] = testCurrent;
 
+			bValidInput = validateInput(CURRENT, testCurrent, dataIndex);
+			if (bValidInput)
+			{
 				dataIndex++;
 			}
 			else
@@ -91,7 +99,7 @@ int main()
 		{
 			cout << ", ";
 		}
-		cout << voltages[i] << "V";
+		cout << g_voltages[i] << "V";
 	}
 	cout << endl;
 
@@ -102,12 +110,12 @@ int main()
 		{
 			cout << ", ";
 		}
-		cout << currents[i] << "A";
+		cout << g_currents[i] << "A";
 	}
 
 	for (int i = 0; i < DATA_POINTS; i++)
 	{
-		powers[i] = voltages[i] * currents[i]; // P = VI
+		powers[i] = g_voltages[i] * g_currents[i]; // P = VI
 		if (bInstantaneousPowers) //only print instantaneous powers if requested, otherwise calcuate them only
 		{
 			if (i == 0)
@@ -136,4 +144,25 @@ int main()
 	cin >> exitLetter;
 
 	return 0;
+}
+
+bool validateInput(bool bVoltageOrCurrent, double testInput, int dataIndex)
+{
+	if (testInput >= 0)
+	{
+		if (bVoltageOrCurrent == VOLTAGE)
+		{
+			g_voltages[dataIndex] = testInput;
+
+			return true;
+		}
+		else if (bVoltageOrCurrent == CURRENT)
+		{
+			g_currents[dataIndex] = testInput;
+
+			return true;
+		}
+	}
+	
+	return false;
 }
