@@ -9,11 +9,17 @@
 #include <string>
 using namespace std;
 
+//Function Good
 bool validateInput(bool bVoltageOrCurrent, double testInput, int dataIndex);
+//Add preconditions and postconditions
 
 const int DATA_POINTS = 5;
 const bool VOLTAGE = true;
 const bool CURRENT = false;
+
+//Work on getting rid of global variables.
+//Can't you just pass the variable and test it?
+// May need different functions for voltage and current - overloading?
 
 double g_voltages[DATA_POINTS];
 double g_currents[DATA_POINTS];
