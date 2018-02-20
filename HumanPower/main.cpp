@@ -5,6 +5,8 @@
 //Description: Program that performs calculations on user inputed electrical data.
 //Last Changed: February 12, 2018
 
+//Test commit/push from new VS2017 installation on my desktop
+
 #include <iostream>
 #include <string>
 using namespace std;
